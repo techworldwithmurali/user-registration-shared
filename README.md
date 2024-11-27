@@ -1,1 +1,1 @@
-# user-registration
+# user-registration-page
