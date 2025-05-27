@@ -14,15 +14,6 @@ pipeline {
     choice(name: 'region', choices: ['us-east-1','us-west-2'], description: 'Select AWS region')
 }
 
-stage('Build and Tag Docker Image') {
-    steps {
-        script {
-            dockerBuild(params.accountNumber, params.region, params.ecrRepoName)
-        }
-    }
-}
-}
-
     stages {
         stage('Clone the repository') {
             steps {
