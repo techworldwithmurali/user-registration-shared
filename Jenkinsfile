@@ -15,7 +15,7 @@ pipeline {
         }
 
 
-         stage(Build the code') {
+         stage('Build the code') {
             steps {
                 buildCode()
             }
