@@ -37,6 +37,15 @@ pipeline {
         }
     }
 }
+
+        stage('Push to ECR') {
+    steps {
+        script {
+            dockerImagePush(params.accountNumber, params.region, params.ecrRepoName)
+        }
+    }
+}
+
         
     }
 }
