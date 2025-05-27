@@ -38,8 +38,8 @@ stage('Build and Tag Docker Image') {
         }
 
         stage('Build and Tag Docker Image') {
-    steps {
-        script {
+            steps {
+                script {
           //   dockerBuild('361769595507', 'us-east-1', 'user-registration')
             dockerBuild(params.accountNumber, params.region, params.ecrRepoName)
             
@@ -48,4 +48,5 @@ stage('Build and Tag Docker Image') {
 }
         
     }
+}
 }
