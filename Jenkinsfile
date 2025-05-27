@@ -2,16 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Clone the repository') {
             steps {
-                echo 'Hello World. tghis fisrt stage'
+                gitClone('develop', 'github-cred', 'https://github.com/techworldwithmurali/user-registration-shared.git')
             }
         }
         
-        stage('This is 2nd stage') {
-            steps {
-                echo 'This is 2nd stage'
-            }
-        }
     }
 }
