@@ -3,10 +3,14 @@
 pipeline {
     agent any
 
+    parameters {
+    string(name: 'branchName', defaultValue: 'develop', description: 'Branch name to clone')
+}
+
     stages {
         stage('Clone the repository') {
             steps {
-                gitClone('develop', 'github-cred', 'https://github.com/techworldwithmurali/user-registration-shared.git')
+                gitClone(params.branchName, 'github-cred', 'https://github.com/techworldwithmurali/user-registration-shared.git')
             }
         }
         
