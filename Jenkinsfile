@@ -24,6 +24,14 @@ pipeline {
             }
         }
 
+stage('Build and Tag Docker Image') {
+    steps {
+        script {
+            dockerBuildforECR('361769595507', 'us-east-1', 'user-registration')
+        }
+    }
+}
+        
 
     }
 
