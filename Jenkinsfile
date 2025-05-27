@@ -14,6 +14,11 @@ pipeline {
     choice(name: 'region', choices: ['us-east-1','us-west-2'], description: 'Select AWS region')
 }
 
+    environment {
+        IMAGE_TAG = "${GIT_COMMIT.substring(0, 6)}"
+    }
+
+    
     stages {
         stage('Clone the repository') {
             steps {
@@ -31,8 +36,8 @@ pipeline {
         stage('Build and Tag Docker Image') {
             steps {
                 script {
-          //   dockerBuild('361769595507', 'us-east-1', 'user-registration')
-            dockerBuild(params.accountNumber, params.region, params.ecrRepoName)
+          //   dockerBuild('361769595507', 'us-east-1', 'user-registration', IMAGE_TAG)
+            dockerBuild(params.accountNumber, params.region, params.ecrRepoName, IMAGE_TAG)
             
         }
     }
