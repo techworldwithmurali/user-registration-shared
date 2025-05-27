@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file from the target directory
-COPY target/*.jar /app/user-registration.jar
+COPY target/*.jar ./user-registration.jar
 
 # Expose the application's port (update if your application uses a specific port)
 EXPOSE 8080
