@@ -13,6 +13,10 @@ pipeline {
     
     parameters {
     string(name: 'branchName', defaultValue: 'aws-ecr', description: 'Branch name to clone')
+    string(name: 'ecrRepoName', defaultValue: 'user-registration', description: 'ecrRepoName')
+    string(name: 'accountNumber', defaultValue: '361769595507', description: 'accountNumber')
+    choice(name: 'region', choices: ['us-east-1','us-west-2'], description: 'Select AWS region')
+
 }
     
     stages {
@@ -32,7 +36,11 @@ pipeline {
 stage('Build and Tag Docker Image') {
     steps {
         script {
-            dockerBuildforECR('361769595507', 'us-east-1', 'user-registration', IMAGE_TAG)
+        //    dockerBuildforECR('361769595507', 'us-east-1', 'user-registration', IMAGE_TAG)
+
+            
+dockerBuildforECR(params.accountNumber, params.region, params.ecrRepoName, IMAGE_TAG)
+            
         }
     }
 }
