@@ -44,6 +44,15 @@ dockerBuildforECR(params.accountNumber, params.region, params.ecrRepoName, IMAGE
         }
     }
 }
+
+
+stage('Push to ECR') {
+    steps {
+        script {
+            dockerImagePushToECR(params.accountNumber, params.region, params.ecrRepoName, IMAGE_TAG)
+        }
+    }
+}
         
 
     }
