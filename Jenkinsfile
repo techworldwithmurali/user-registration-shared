@@ -13,6 +13,7 @@ pipeline {
     
     parameters {
     string(name: 'branchName', defaultValue: 'dockerhub', description: 'Branch name to clone')
+        string(name: 'dockerHubRepoName', defaultValue: 'user-registration', description: 'dockerHubRepoName')
 }
 
     stages {
@@ -32,7 +33,7 @@ pipeline {
         stage('Build and Tag Docker Image') {
     steps {
         script {
-            dockerBuildForDockerHub('mmreddy424', 'user-registration', IMAGE_TAG)
+            dockerBuildForDockerHub('mmreddy424', params.dockerHubRepoName , IMAGE_TAG)
         }
     }
 }
