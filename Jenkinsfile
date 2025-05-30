@@ -37,6 +37,14 @@ pipeline {
         }
     }
 }
+
+        stage('Push to DockerHub') {
+    steps {
+        script {
+            dockerImagePushToDockerHub('mmreddy424', params.dockerHubRepoName, IMAGE_TAG)
+        }
+    }
+}
         
     }
 }
