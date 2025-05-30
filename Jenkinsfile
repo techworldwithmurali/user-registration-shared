@@ -23,6 +23,14 @@ pipeline {
                 buildCode()
             }
         }
+
+        stage('Build and Tag Docker Image') {
+    steps {
+        script {
+            dockerBuildForDockerHub('mmreddy424', 'user-registration')
+        }
+    }
+}
         
     }
 }
