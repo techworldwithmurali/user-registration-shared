@@ -7,7 +7,7 @@ pipeline {
 }
 
     parameters {
-    string(name: 'branchName', defaultValue: 'develop', description: 'Branch name to clone')
+    string(name: 'branchName', defaultValue: 'dockerhub', description: 'Branch name to clone')
 }
 
     stages {
