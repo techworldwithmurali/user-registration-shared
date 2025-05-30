@@ -6,6 +6,11 @@ pipeline {
   maven 'Maven-3.9.8'
 }
 
+    environment {
+    IMAGE_TAG = "${GIT_COMMIT.substring(0, 6)}"
+}
+
+    
     parameters {
     string(name: 'branchName', defaultValue: 'dockerhub', description: 'Branch name to clone')
 }
@@ -27,7 +32,7 @@ pipeline {
         stage('Build and Tag Docker Image') {
     steps {
         script {
-            dockerBuildForDockerHub('mmreddy424', 'user-registration')
+            dockerBuildForDockerHub('mmreddy424', 'user-registration', IMAGE_TAG)
         }
     }
 }
