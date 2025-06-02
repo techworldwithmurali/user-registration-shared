@@ -2,9 +2,6 @@
 
 pipeline {
     agent any
-    tools {
-  maven 'Maven-3.9.8'
-}
 
     parameters {
     string(name: 'branchName', defaultValue: 'develop', description: 'Branch name to clone')
@@ -18,11 +15,7 @@ pipeline {
         }
 
 
-         stage('Build the code') {
-            steps {
-                buildCode()
-            }
-        }
+        
         
     }
 }
