@@ -14,7 +14,11 @@ pipeline {
             }
         }
 
-
+stage('Install Kubectl') {
+    steps {
+        installKubectl()
+    }
+}
         
         
     }
