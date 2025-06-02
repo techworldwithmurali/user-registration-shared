@@ -4,7 +4,7 @@ pipeline {
     agent any
 
     parameters {
-    string(name: 'branchName', defaultValue: 'develop', description: 'Branch name to clone')
+    string(name: 'branchName', defaultValue: 'eks', description: 'Branch name to clone')
 }
 
     stages {
