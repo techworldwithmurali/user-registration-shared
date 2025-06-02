@@ -14,6 +14,7 @@ pipeline {
 }
     environment {
     DEPLOYMENT_FILE = 'k8s/deployment.yaml'
+        YAML_DIR = 'k8s/'
 }
 
     stages {
@@ -41,6 +42,12 @@ stage('Update Image Tag in Deployment') {
     }
 }
 
+
+        stage('Apply Kubernetes YAMLs') {
+    steps {
+        applyK8sYaml(YAML_DIR)
+    }
+}
         
     }
 }
