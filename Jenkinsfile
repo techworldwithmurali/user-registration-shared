@@ -8,7 +8,12 @@ pipeline {
  choice(name: 'region', choices: ['us-east-1','us-west-2'], description: 'Select AWS region')
         choice(name: 'clusterName', choices: [ 'infra-cluster', 'dev-cluster', 'test-cluster',
             'qa-cluster', 'uat-cluster', 'pre-prod-cluster', 'prod-cluster'  ], description: 'Select cluster name')
+
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag to update in the deployment YAML')
         
+}
+    environment {
+    DEPLOYMENT_FILE = 'k8s/deployment.yaml'
 }
 
     stages {
@@ -27,6 +32,12 @@ stage('Install Kubectl') {
 stage('Connect to EKS') {
     steps {
         connectToEks(params.clusterName, params.region)
+    }
+}
+
+stage('Update Image Tag in Deployment') {
+    steps {
+        updateTagInDeployment(env.DEPLOYMENT_FILE, params.IMAGE_TAG)
     }
 }
 
