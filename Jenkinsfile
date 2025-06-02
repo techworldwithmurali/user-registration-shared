@@ -23,6 +23,12 @@ pipeline {
                 buildCode()
             }
         }
+
+        stage('Static Code Analysis') {
+            steps {
+                staticCodeAnalysis()
+            }
+        }
         
     }
 }
