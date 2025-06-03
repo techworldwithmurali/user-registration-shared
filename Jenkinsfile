@@ -2,12 +2,19 @@
 
 pipeline {
     agent any
-    tools {
-  maven 'Maven-3.9.8'
-}
 
     parameters {
-    string(name: 'branchName', defaultValue: 'helm-eks', description: 'Branch name to clone')
+    string(name: 'branchName', defaultValue: 'eks', description: 'Branch name to clone')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag to update in the deployment YAML')
+        choice(name: 'ENVIRONMENT', choices: ['dev','test','qa','uat','preprod','prod'], description: 'Target environment')
+        string(name: 'RELEASE_NAME', defaultValue: 'user-registration', description: 'Helm release name')
+        string(name: 'NAMESPACE', defaultValue: 'user-managment', description: 'Kubernetes namespace')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag')		
+        
+}
+    environment {
+    DEPLOYMENT_FILE = 'k8s/deployment.yaml'
+        YAML_DIR = 'k8s/'
 }
 
     stages {
@@ -16,6 +23,43 @@ pipeline {
                 gitClone(params.branchName, 'github-cred', 'https://github.com/techworldwithmurali/user-registration-shared.git')
             }
         }
+
+stage('Install Helm3') {
+    steps {
+        installHelm()
+        // installHelm('v3.14.0') for a specific version
+    }
+}
+
+stage('Update Image Tag in Deployment') {
+    steps {
+        updateTagInDeployment(env.DEPLOYMENT_FILE, params.IMAGE_TAG)
+    }
+}
+        
+
+     stage('Set Kubeconfig') {
+            steps {
+                withCredentials([file(credentialsId: "kubeconfig-infra", variable: 'KUBECONFIG')]) {
+                    sh '''
+                        kubectl config get-contexts
+                        kubectl get nodes
+                    '''
+                }
+            }
+        }
+
+
+    stage('Helm Deploy') {
+    steps {
+        helmDeploy(
+            params.ENVIRONMENT,
+            params.RELEASE_NAME,
+            params.NAMESPACE,
+            params.IMAGE_TAG
+        )
+    }
+}
 
         
     }
