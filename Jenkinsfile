@@ -56,6 +56,7 @@ stage('Update Image Tag in Deployment') {
                     
                     sh '''
                      export KUBECONFIG=$KUBECONFIG_FILE
+                     cat $KUBECONFIG
                         kubectl apply -f k8s/
                     '''
                 }
