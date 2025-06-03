@@ -36,13 +36,6 @@ stage('Update Image Tag in Deployment') {
         updateTagInDeployment(env.DEPLOYMENT_FILE, params.IMAGE_TAG)
     }
 }
-
- stage('Connect to EKS') {
-    steps {
-        connectToEks(params.clusterName, params.region)
-    }
-}
-
         
 
      stage('Set Kubeconfig') {
