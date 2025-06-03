@@ -7,7 +7,7 @@ pipeline {
 }
 
     parameters {
-    string(name: 'branchName', defaultValue: 'develop', description: 'Branch name to clone')
+    string(name: 'branchName', defaultValue: 'helm-eks', description: 'Branch name to clone')
 }
 
     stages {
@@ -17,12 +17,6 @@ pipeline {
             }
         }
 
-
-         stage('Build the code') {
-            steps {
-                buildCode()
-            }
-        }
         
     }
 }
