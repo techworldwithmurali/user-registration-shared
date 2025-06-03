@@ -11,11 +11,6 @@ pipeline {
         string(name: 'NAMESPACE', defaultValue: 'user-managment', description: 'Kubernetes namespace')	
         
 }
-    environment {
-    DEPLOYMENT_FILE = 'k8s/deployment.yaml'
-        YAML_DIR = 'k8s/'
-}
-
     stages {
         stage('Clone the repository') {
             steps {
@@ -29,13 +24,7 @@ stage('Install Helm3') {
         // installHelm('v3.14.0') for a specific version
     }
 }
-
-stage('Update Image Tag in Deployment') {
-    steps {
-        updateTagInDeployment(env.DEPLOYMENT_FILE, params.IMAGE_TAG)
-    }
-}
-        
+ 
 
      stage('Set Kubeconfig') {
             steps {
