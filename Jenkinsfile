@@ -49,16 +49,17 @@ stage('Update Image Tag in Deployment') {
             }
         }
 
-       stage('Deploy to EKS') {
-    steps {
-        withCredentials([file(credentialsId: "kubeconfig-infra", variable: 'KUBECONFIG')]) {
-            sh '''
-                kubectl apply -f ${DEPLOYMENT_FILE}
-                kubectl rollout status deployment your-deployment-name
-            '''
+
+     stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-infra', variable: 'KUBECONFIG_FILE')]) {
+                    sh '''
+                        export KUBECONFIG=$KUBECONFIG_FILE
+                        kubectl apply -f k8s/
+                    '''
+                }
+            }
         }
-    }
-}
 
         
     }
