@@ -5,12 +5,11 @@ pipeline {
 
     parameters {
     string(name: 'branchName', defaultValue: 'eks', description: 'Branch name to clone')
-choice(name: 'region', choices: ['us-east-1','us-west-2'], description: 'Select AWS region')
-        choice(name: 'clusterName', choices: [
-            'infra-cluster', 'dev-cluster', 'test-cluster',
-            'qa-cluster', 'uat-cluster', 'pre-prod-cluster', 'prod-cluster'
-        ], description: 'Select cluster name')
         string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag to update in the deployment YAML')
+        choice(name: 'ENVIRONMENT', choices: ['dev','test','qa','uat','preprod','prod'], description: 'Target environment')
+        string(name: 'RELEASE_NAME', defaultValue: 'user-registration', description: 'Helm release name')
+        string(name: 'NAMESPACE', defaultValue: 'user-managment', description: 'Kubernetes namespace')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag')		
         
 }
     environment {
@@ -25,9 +24,10 @@ choice(name: 'region', choices: ['us-east-1','us-west-2'], description: 'Select 
             }
         }
 
-stage('Install Kubectl') {
+stage('Install Helm3') {
     steps {
-        installKubectl()
+        installHelm()
+        // installHelm('v3.14.0') for a specific version
     }
 }
 
@@ -50,18 +50,16 @@ stage('Update Image Tag in Deployment') {
         }
 
 
-     stage('Deploy to Kubernetes') {
-            steps {
-                withCredentials([file(credentialsId: 'kubeconfig-infra', variable: 'KUBECONFIG_FILE')]) {
-                    
-                    sh '''
-                     export KUBECONFIG=$KUBECONFIG_FILE
-                     cat $KUBECONFIG
-                        kubectl apply -f k8s/
-                    '''
-                }
-            }
-        }
+    stage('Helm Deploy') {
+    steps {
+        helmDeploy(
+            params.ENVIRONMENT,
+            params.RELEASE_NAME,
+            params.NAMESPACE,
+            params.IMAGE_TAG
+        )
+    }
+}
 
         
     }
