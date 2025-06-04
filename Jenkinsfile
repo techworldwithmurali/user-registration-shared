@@ -5,8 +5,14 @@ pipeline {
 
     parameters {
     string(name: 'branchName', defaultValue: 'eks', description: 'Branch name to clone')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag to update in the deployment YAML')
 }
 
+    environment {
+    DEPLOYMENT_FILE = 'k8s/deployment.yaml'
+}
+
+    
     stages {
         stage('Clone the repository') {
             steps {
@@ -17,6 +23,13 @@ pipeline {
         stage('Install Kubectl') {
     steps {
         installKubectl()
+    }
+}
+
+
+        stage('Update Image Tag in Deployment') {
+    steps {
+        updateTagInDeployment(env.DEPLOYMENT_FILE, params.IMAGE_TAG)
     }
 }
         
