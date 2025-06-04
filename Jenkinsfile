@@ -41,6 +41,19 @@ pipeline {
                 }
             }
         }
+
+
+         stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    deployToK8s('kubeconfig-infra', 'k8s/')
+                }
+            }
+        }
+
+
+
+        
         
     }
 }
