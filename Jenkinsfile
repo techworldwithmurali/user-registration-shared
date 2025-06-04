@@ -8,7 +8,7 @@ pipeline {
         string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag to update in the deployment YAML')
         choice(name: 'ENVIRONMENT', choices: ['dev','test','qa','uat','preprod','prod'], description: 'Target environment')
         string(name: 'RELEASE_NAME', defaultValue: 'user-registration', description: 'Helm release name')
-        string(name: 'NAMESPACE', defaultValue: 'user-managment', description: 'Kubernetes namespace')	
+        string(name: 'NAMESPACE', defaultValue: 'user-management', description: 'Kubernetes namespace')	
         
 }
     stages {
