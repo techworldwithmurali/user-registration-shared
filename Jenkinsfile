@@ -13,6 +13,12 @@ pipeline {
                 gitClone(params.branchName, 'github-cred', 'https://github.com/techworldwithmurali/user-registration-shared.git')
             }
         }
+
+        stage('Install Kubectl') {
+    steps {
+        installKubectl()
+    }
+}
         
     }
 }
