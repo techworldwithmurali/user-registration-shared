@@ -38,16 +38,19 @@ stage('Install Helm3') {
         }
 
 
-    stage('Helm Deploy') {
+   stage('Helm Deploy') {
     steps {
-        helmDeploy(
-            params.ENVIRONMENT,
-            params.RELEASE_NAME,
-            params.NAMESPACE,
-            params.IMAGE_TAG
-        )
+        withCredentials([file(credentialsId: 'kubeconfig-infra', variable: 'KUBECONFIG')]) {
+            helmDeploy(
+                params.ENVIRONMENT,
+                params.RELEASE_NAME,
+                params.NAMESPACE,
+                params.IMAGE_TAG
+            )
+        }
     }
 }
+
 
         
     }
