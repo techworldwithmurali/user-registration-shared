@@ -4,7 +4,7 @@ pipeline {
     agent any
 
     parameters {
-    string(name: 'branchName', defaultValue: 'eks', description: 'Branch name to clone')
+    string(name: 'branchName', defaultValue: 'helm', description: 'Branch name to clone')
         string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag to update in the deployment YAML')
         choice(name: 'ENVIRONMENT', choices: ['dev','test','qa','uat','preprod','prod'], description: 'Target environment')
         string(name: 'RELEASE_NAME', defaultValue: 'user-registration', description: 'Helm release name')
