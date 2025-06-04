@@ -32,6 +32,15 @@ pipeline {
         updateTagInDeployment(env.DEPLOYMENT_FILE, params.IMAGE_TAG)
     }
 }
+
+
+         stage('Set Kubeconfig') {
+            steps {
+                script {
+                    setKubeconfig('kubeconfig-infra')
+                }
+            }
+        }
         
     }
 }
