@@ -26,7 +26,13 @@ pipeline {
         installKubectl()
     }
 }
-        
+
+
+ stage('Set Kubeconfig') {
+    steps {
+        setKubeconfig(kubeconfig-infra)
+    }
+}
         
     }
 }
