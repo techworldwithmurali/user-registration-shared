@@ -30,7 +30,7 @@ pipeline {
 
  stage('Set Kubeconfig') {
     steps {
-        setKubeconfig(kubeconfig-infra)
+        setKubeconfig('kubeconfig-infra')
     }
 }
         
