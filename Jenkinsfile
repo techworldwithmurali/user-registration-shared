@@ -7,7 +7,7 @@ pipeline {
     string(name: 'branchName', defaultValue: 'helm-eks', description: 'Branch name to clone')
         choice(name: 'ENVIRONMENT', choices: ['dev','test','qa','uat','preprod','infra','prod'], description: 'Target environment')
         string(name: 'RELEASE_NAME', defaultValue: 'user-registration', description: 'Helm release name')
-        string(name: 'NAMESPACE', defaultValue: 'user-managment', description: 'Kubernetes namespace')
+        string(name: 'NAMESPACE', defaultValue: 'user-management', description: 'Kubernetes namespace')
         string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker image tag')	
         
 }
