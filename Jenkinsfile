@@ -41,7 +41,7 @@ pipeline {
 stage('Helm Deploy') {
     steps {
             helmDeploy(
-               'kubeconfig-infra',
+               "kubeconfig-infra",
                 params.ENVIRONMENT,
                 params.RELEASE_NAME,
                 params.NAMESPACE,
