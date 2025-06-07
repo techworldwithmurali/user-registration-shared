@@ -14,6 +14,13 @@ pipeline {
             }
         }
 
+        stage('Install Helm3') {
+    steps {
+        installHelm()
+        // installHelm('v3.14.0') for a specific version
+    }
+}
+
         
     }
 }
